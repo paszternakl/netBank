@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="row">
+                <ui:insert name="body">
+                    <ui:include src="/WEB-INF/include/template.xhtml"/>    
+                </ui:insert>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-5">
+                            <h:form class="mt-5">
+                                <h:outputLabel class="welcomepage">Az Ön által megadott email címre küldjük a regisztációhoz szükséges információkat!<br/> Köszönjük bizalmát!<br/></h:outputLabel>
+                                    <br/>
+                                <h:commandButton class="mt-3" value="Vissza a kezdőlapra" action="/login.xhtml"/>
+                            </h:form>
+                        </div> 
+                        <div class="col-xs-12 col-md-7">
+                            <img src="logo.png" width="500px" height="500px"/>
+                        </div>
+                    </div>    
+                </div>     
+            </div>
+        </div>        
+    </h:body>
+</html>
+

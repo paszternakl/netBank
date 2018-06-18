@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Money Bank</title>
+
+    </h:head>
+    <h:body>
+        <div class="container ">
+            <div class="row">
+                <ui:insert name="body">
+                    <ui:include src="/WEB-INF/include/template.xhtml"/>    
+                </ui:insert>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row"> 
+                <div class="form">
+                    <h:form>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Főoldal" action="#{balanceController.moveToBalanceDetails()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Számlatörténet"  action="#{balanceController.moveToHistory()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Utalás" action="#{balanceController.moveToTransfer()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Kilépés"  action="#{loginController.logoutCustomer()}" ajax="false" />
+                        </span>
+                    </h:form>
+                    <br/>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-4 mt-3">
+                    <h:form id="form">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:outputLabel   value="Dátumig:"/>    
+                            <p:calendar  id="fromdate" value="#{balanceController.fromDate}"/>
+                            <p:outputLabel   value="Dátumig:"/>
+                            <p:calendar  id="todate" value="#{balanceController.toDate}"/>
+                        </h:panelGrid>
+                        <br/>
+                        <p:commandButton value="Megnéz" actionListener="#{balanceController.allBankTransactions()}" update="form" ajax="false">
+                            <f:param  name="fromdate"  value="#{balanceController.fromDate}"/>  
+                            <f:param  name="todate"  value="#{balanceController.toDate}"/>  
+                        </p:commandButton>
+                    </h:form>
+                    <img src="logo.png" width="400px" height="400px"/>
+                </div>
+                <div class="col-xs-12 col-md-8 mt-3">
+                    <h:form>
+                        <p:dataTable value="#{balanceController.bankTransactions}" var="transaction" filteredValue="#{balanceController.filteredBankTransactions}" widgetVar="transactiontable" emptyMessage="Nincs megjeleníthető elem!">
+                            <p:column id="tdate" sortBy="#{transaction.transactionDate}">
+                                <f:facet name="header">
+                                    <h:outputText value="Dátum" />
+                                </f:facet>
+                                <h:outputText value="#{transaction.transactionDate}"  />
+                            </p:column>
+                            <p:column  id="ttype" filterBy="#{transaction.type}" sortBy="#{transaction.transactionDate}">
+                                <f:facet name="header">
+                                    <h:outputText value="Típus" />
+                                </f:facet>   
+                                <h:outputText value="#{transaction.type}"  />
+                            </p:column>
+                            <p:column id="tamount" filterBy="#{transaction.amount}" sortBy="#{transaction.transactionDate}">
+                                <f:facet name="header">
+                                    <h:outputText value="Összeg" />
+                                </f:facet>
+                                <h:outputText value="#{transaction.amount}" />
+                            </p:column>
+                            <p:column id="tdescription" filterBy="#{transaction.description}" sortBy="#{transaction.transactionDate}">
+                                <f:facet name="header">
+                                    <h:outputText value="Megjegyzés" />
+                                </f:facet>
+                                <h:outputText value="#{transaction.description}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>    

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Money Bank</title>
+    </h:head>
+    <h:body>
+        <div class="container ">
+            <div class="row">
+
+
+                <ui:insert name="body">
+                    <ui:include src="/WEB-INF/include/template.xhtml"/>    
+                </ui:insert>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row"> 
+                <div class="form">
+                    <h:form>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Főoldal" action="#{balanceController.moveToBalanceDetails()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Számlatörténet"  action="#{balanceController.moveToHistory()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Utalás" action="#{balanceController.moveToTransfer()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Kilépés"  action="#{loginController.logoutCustomer()}" ajax="false" />
+                        </span>
+
+                    </h:form>
+                    <br/>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-5">
+                    <h:form>
+                    <p:outputLabel >Számlatulajdonos neve:</p:outputLabel><br/>
+                    <h:outputText  value="#{balanceController.customer.lastName} #{balanceController.customer.firstName}"/>
+                    <br/>
+                    <p:outputLabel > Számlaszám:</p:outputLabel><br/>
+                    <h:outputText  value="#{balanceController.accountDetails.number}"/>
+                    <br/>
+                    <p:outputLabel > Számlanyitás dátuma:</p:outputLabel><br/>
+                    <h:outputText  value="#{balanceController.accountDetails.openDate}"/>
+                    <br/>
+                    <p:outputLabel > Egyenleg:</p:outputLabel><br/>
+                    <h:outputText  value="#{balanceController.accountDetails.balance} #{'Ft'}"/>
+                    <br/>
+                    <img src="logo.png" width="400px" height="400px"/>
+                    </h:form>
+                </div>
+                <div class="col-xs-12 col-md-7">
+                    <p:dataTable var="balance" value="#{balanceController.transactionsByAccountIdLastMonth}">
+                            <f:facet name="header">
+                                A legutóbbi 30 nap számlatörténete
+                            </f:facet>
+                        <p:column headerText="Dátum">
+                            <h:outputText value="#{balance.transactionDate}" />
+                        </p:column>
+
+                        <p:column headerText="Típus">
+                            <h:outputText value="#{balance.type}" />
+                        </p:column>
+
+                        <p:column headerText="Összeg">
+                            <h:outputText value="#{balance.amount}" />
+                        </p:column>
+
+                        <p:column headerText="Megjegyzés">
+                            <h:outputText value="#{balance.description}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </div>
+
+
+    </h:body>
+</html>
+

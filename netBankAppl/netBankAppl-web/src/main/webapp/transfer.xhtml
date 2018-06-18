@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"                
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <title>Money Bank</title>
+
+    </h:head>
+    <h:body>
+        <div class="container ">
+            <div class="row">
+                <ui:insert name="body">
+                    <ui:include src="/WEB-INF/include/template.xhtml"/>    
+                </ui:insert>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row"> 
+                <div class="form">
+                    <h:form>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Főoldal" action="#{balanceController.moveToBalanceDetails()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Számlatörténet"  action="#{balanceController.moveToHistory()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Utalás" action="#{balanceController.moveToTransfer()}" ajax="false" />
+                        </span>
+                        <span class="navbuttons mr-5">
+                            <p:commandButton value="Kilépés"  action="#{loginController.logoutCustomer()}" ajax="false" />
+                        </span>
+                    </h:form>
+                    <br/>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <h4>Átutalás</h4>
+                    <h:form id="transferform">
+                        <p:outputLabel > Számlaszám:</p:outputLabel><br/>
+                        <p:inputText id="accountnumber"  value="#{banktransactionController.accountToNumber}"></p:inputText>
+                        <br/>
+                        <p:outputLabel > Átutalás dátuma:</p:outputLabel><br/>
+                        <p:calendar id="date"   value="#{calendarController.date}" />
+                        <br/>
+                        <p:outputLabel > Összeg:</p:outputLabel><br/>
+                        <p:inputText id="amount"  value="#{banktransactionController.amount}"></p:inputText>
+                        <br/>
+                        <p:outputLabel > Megjegyzés:</p:outputLabel><br/>
+                        <p:inputText id="description"  value="#{banktransactionController.banktransaction.description}"></p:inputText>
+                        <br/>
+                        <br/>
+                        <p:commandButton value="Átutal" actionListener="#{banktransactionController.transferMoney()}"/>
+                    </h:form>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <img src="logo.png" width="400px" height="400px"/>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>      
+
