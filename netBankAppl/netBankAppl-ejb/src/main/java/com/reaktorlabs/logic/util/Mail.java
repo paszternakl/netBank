@@ -44,7 +44,7 @@ public class Mail {
         try {
 
             Message message = new MimeMessage(session);
-            Address address = new InternetAddress("takimalac@gmail.com");
+            Address address = new InternetAddress("**********@gmail.com"); // your e-mail account here
             message.setFrom(address);
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses));
             message.setSubject("Számlanyitási kérelem");
